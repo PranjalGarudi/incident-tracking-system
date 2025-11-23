@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Report Confirmation</title>
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background: #e8f5e9;
+      display: flex;
+      justify-content: center;
+      padding-top: 40px;
+    }
+    .box {
+      background: #fff;
+      padding: 25px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      background: #4caf50;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🌱 Thank You, <span id="name"></span>!</h2>
+    <p>Your environmental report has been submitted successfully.</p>
+
+    <h3>Assigned Team:</h3>
+    <p><b id="teamName"></b></p>
+    <p>📞 <span id="teamContact"></span></p>
+
+    <p>You will receive a call once the team reaches your reported area.</p>
+    <p>If the issue is resolved, please consider giving feedback.</p>
+
+    <button onclick="window.location.href='/feedback'">Give Feedback</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("name").textContent = params.get("user") || "User";
+    document.getElementById("teamName").textContent = params.get("team");
+    document.getElementById("teamContact").textContent = params.get("contact");
+  </script>
+</body>
+</html>
