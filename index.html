@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environmental Incident Reporting</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%; max-width: 450px;
+      animation: fadeIn 1s ease;
+    }
+    h2 { text-align: center; color: #2e7d32; margin-bottom: 10px; }
+    p { text-align: center; color: #666; margin-bottom: 20px; }
+    form input, form textarea, form select, form button {
+      width: 100%; margin: 8px 0 16px 0;
+      padding: 10px 12px; border: 1px solid #ccc;
+      border-radius: 8px; font-size: 15px;
+      transition: 0.3s;
+    }
+    form input:focus, form textarea:focus, form select:focus {
+      border-color: #56ab2f;
+      outline: none;
+      box-shadow: 0 0 5px rgba(86,171,47,0.5);
+    }
+    textarea { resize: none; height: 100px; }
+    button {
+      background: linear-gradient(135deg, #56ab2f, #a8e063);
+      color: white; font-weight: bold;
+      border: none; cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(86,171,47,0.4);
+    }
+    footer {
+      margin-top: 20px;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🌍 Environmental Incident Report</h2>
+    <p>Help us protect the planet by reporting any environmental issue you notice.</p>
+
+    <form id="reportForm">
+      <input type="text" id="userName" placeholder="👤 Your Name" required>
+      <input type="email" id="userEmail" placeholder="📧 Your Email" required>
+      <textarea id="description" placeholder="📝 Describe the incident..." required></textarea>
+      <input type="text" id="location" placeholder="📍 Location" required>
+      <select id="category" required>
+        <option value="">🌿 Select Category</option>
+        <option>Pollution</option>
+        <option>Littering</option>
+        <option>Deforestation</option>
+      </select>
+      <button type="submit">🚀 Submit Report</button>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 Environmental Reporting Initiative | Made with 🌱 by You
+  </footer>
+
+  <script>
+    document.getElementById('reportForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        user_name: document.getElementById('userName').value,
+        user_email: document.getElementById('userEmail').value,
+        description: document.getElementById('description').value,
+        location: document.getElementById('location').value,
+        category: document.getElementById('category').value
+      };
+      try {
+        const res = await fetch('/api/report', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+         // 🚀 REDIRECT AFTER SUCCESS
+      window.location.href =
+        `/report-confirmation?user=${encodeURIComponent(data.user_name)}&team=${encodeURIComponent(result.team_name)}&contact=${encodeURIComponent(result.team_contact)}`;
+        //alert(result.message);
+        //document.getElementById('reportForm').reset();
+      } catch (err) {
+        alert('❌ Failed to submit report.');
+        console.error(err);
+      }
+    });
+  </script>
+  <p style="text-align:center;">
+  💬 Want to share feedback? <a href="/feedback">Click here</a>
+</p>
+
+</body>
+</html>

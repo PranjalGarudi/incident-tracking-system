@@ -1,0 +1,74 @@
+<!--feedback.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💬 Feedback | Environmental Incident System</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #56ab2f, #a8e063);
+      margin: 0; padding: 0;
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%; max-width: 400px;
+      text-align: center;
+    }
+    input, textarea, button {
+      width: 100%; margin: 10px 0;
+      padding: 10px; border-radius: 8px; border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    button {
+      background: linear-gradient(135deg, #56ab2f, #a8e063);
+      color: white; font-weight: bold; border: none;
+      cursor: pointer; transition: 0.3s;
+    }
+    button:hover { transform: scale(1.05); }
+    h2 { color: #2e7d32; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💬 We Value Your Feedback</h2>
+    <p>Share your experience or suggestions.</p>
+    <form id="feedbackForm">
+      <input type="email" id="fbEmail" placeholder="📧 Your Email" required>
+      <textarea id="fbDescription" placeholder="Your suggestions..." required></textarea>
+      <button type="submit">✅ Submit Feedback</button>
+    </form>
+    <p><a href="index.html">⬅️ Back to Home</a></p>
+  </div>
+
+  <script>
+    document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        user_email: document.getElementById('fbEmail').value,
+        description: document.getElementById('fbDescription').value
+      };
+
+      try {
+        const res = await fetch('/api/feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        alert(result.message);
+        document.getElementById('feedbackForm').reset();
+      } catch (err) {
+        alert('❌ Failed to send feedback.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

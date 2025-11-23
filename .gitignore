@@ -1,0 +1,20 @@
+# Node modules
+node_modules/
+
+# environment & credentials
+db.js
+.env
+
+# System files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Optional: ignore backups
+*.bak
+*.tmp
